@@ -3,6 +3,7 @@ public class Grafo {
     private final int INACESSIVEL = Integer.MAX_VALUE; // Valor usado quando não se sabe a distância real
     private int [][] matriz;                           // entre o vértice inicial e os outros vértices, ai
     private int numVertices;                           // diz que é muito grande, muito longe, inacessível
+    public int peso;
 
     // Criar um Grafo vazio
     public Grafo(int numVertices){
@@ -10,7 +11,7 @@ public class Grafo {
         matriz = new int [numVertices][numVertices];
 
         for (int i = 0; i < numVertices;i++){
-            for (int j = 0; i < numVertices;j++){
+            for (int j = 0; j < numVertices;j++){
                 if (i == j){
                     matriz[i][j] = 0;
 
@@ -37,6 +38,15 @@ public class Grafo {
             System.out.println("Essa Aresta não existe!");
         } else{
             System.out.println("Essa Aresta existe! O peso: "+ matriz[v1][v2]);
+        }
+    }
+
+    public void RemoveAresta(int v1, int v2){
+        if (matriz[v1][v2] == INACESSIVEL){
+            System.out.println("Essa Aresta não existe!");
+        }  else {
+           peso = matriz[v1][v2];
+           matriz[v1][v2] = INACESSIVEL;
         }
     }
 
