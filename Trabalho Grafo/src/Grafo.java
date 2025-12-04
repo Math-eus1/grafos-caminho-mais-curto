@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Grafo {
 
     private final int INACESSIVEL = Integer.MAX_VALUE; // Valor usado quando não se sabe a distância real
@@ -48,6 +50,21 @@ public class Grafo {
            peso = matriz[v1][v2];
            matriz[v1][v2] = INACESSIVEL;
         }
+    }
+
+    public ArrayList<Integer> ListarAdjacentes(int v){
+        ArrayList<Integer> adjacentes = new ArrayList<>();
+
+        for (int i = 0; i < numVertices; i++){
+            if (v == i){
+                continue;
+            }
+
+            if (matriz[v][i] != INACESSIVEL){
+                adjacentes.add(i);
+            }
+        }
+        return adjacentes;
     }
 
 }
