@@ -67,4 +67,14 @@ public class Grafo {
         return adjacentes;
     }
 
+    public void ImprimeGrafo(){
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++){
+                if (matriz[i][j] != INACESSIVEL){
+                    System.out.println("Aresta: " + i + " -> " + j + "[ " + matriz[i][j] + "]");
+                }
+            }
+        }
+    }
+
 }
