@@ -67,14 +67,26 @@ public class Grafo {
         return adjacentes;
     }
 
-    public void ImprimeGrafo(){
+    public void ImprimeGrafoPorAresta(){
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++){
                 if (matriz[i][j] != INACESSIVEL){
-                    System.out.println("Aresta: " + i + " -> " + j + "[ " + matriz[i][j] + "]");
+                    System.out.println("Aresta: " + i + " -> " + j + " [" + matriz[i][j] + "]");
                 }
             }
         }
     }
 
+    public void ImprimeGrafoMatriz() {
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                if (matriz[i][j] == INACESSIVEL) {
+                    System.out.print("-  "); 
+                } else {
+                    System.out.print(matriz[i][j] + " "); 
+                }
+            }
+            System.out.println(); 
+        }
+    }
 }
