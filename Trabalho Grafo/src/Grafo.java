@@ -29,6 +29,12 @@ public class Grafo {
         matriz[v1][v2] = peso; // Atribui o valor da Aresta ao peso e é direcionado, pois só tem um sentido
     }
 
+    public void Insercao(){
+        System.out.println("vertice 1: ");
+        System.out.println("vertice 2: ");
+        System.out.println("peso: ");
+    }
+
     public void ExisteAresta(int v1, int v2){
 
         if (v1 == v2) {
@@ -81,8 +87,8 @@ public class Grafo {
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {
                 if (matriz[i][j] == INACESSIVEL) {
-                    System.out.print("-  "); 
-                } else {
+                    System.out.print("-  "); //isso aqui é pra ele não mostrar o número max dos inteiros;
+                } else {                       //dá pra trocar por 0 ou por inf também
                     System.out.print(matriz[i][j] + " "); 
                 }
             }
