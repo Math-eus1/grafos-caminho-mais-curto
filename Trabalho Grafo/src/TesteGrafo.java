@@ -1,118 +1,150 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class TesteGrafo {
 
     public static void main(String[] args) {
 
-        System.out.println("Insira a quantidade de Vértices: ");
         Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Insira a quantidade de vértices: \n");
         int inputVertices = scanner.nextInt();
 
         Grafo grafo = new Grafo(inputVertices);
-        System.out.println("--- Grafo criado com " + inputVertices + " vertices ---");
-        System.out.println();
+        System.out.println("\n--- Grafo criado com " + inputVertices + " vértices ---\n");
 
-        boolean sistema = true;
         int opcao;
-        int SimOuNao;
-        while (sistema == true) {
+        int SimOuNao = 1;
 
-            System.out.println("Selecione a ação que deseja: ");
+        while (true) {
+
+            System.out.println("\n===== MENU DO GRAFO =====");
             System.out.println("1) Inserir Arestas");
-            System.out.println("2) Verificar existencia da Aresta");
-            System.out.println("3) Remover Aresta(s)");
+            System.out.println("2) Verificar Existência da Aresta");
+            System.out.println("3) Remover Aresta");
             System.out.println("4) Listar Adjacentes");
-            System.out.println("5) Imprimir Grafo por aresta");
+            System.out.println("5) Imprimir Grafo por Aresta");
             System.out.println("6) Imprimir Grafo por Matriz");
             System.out.println("0) Sair do Sistema");
+            System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();
-            int inicializador = 0; 
-            int vert1;
-            int vert2;
-            int pesoAresta;
+
+            int vert1, vert2, pesoAresta;
 
             if (opcao == 1) {
-                while (inicializador < (inputVertices*inputVertices)) {
-                    System.out.println("inserir aresta? SIM (1) / NAO (0)");
-                    SimOuNao = scanner.nextInt();
-                    if (SimOuNao == 0) {
-                        inicializador = (inputVertices*inputVertices);
+                SimOuNao = 1;
+                while (SimOuNao == 1) {
+
+                    System.out.print("Informe v1, v2 e o peso: \n");
+                    vert1 = scanner.nextInt();
+                    vert2 = scanner.nextInt();
+                    pesoAresta = scanner.nextInt();
+
+                    if (!validaVertices(vert1, vert2, inputVertices)) {
+                        System.out.println("Vértices inválidos!");
                         continue;
-                    }else{
-                        System.out.println("Forneça o v1, v2 e o peso: ");
-                        vert1 = scanner.nextInt();
-                        vert2 = scanner.nextInt();
-                        pesoAresta = scanner.nextInt();
-                        grafo.InserirAresta(vert1, vert2, pesoAresta);
-                        inicializador++;
                     }
+
+                    grafo.InserirAresta(vert1, vert2, pesoAresta);
+                    System.out.println("Aresta inserida com sucesso!");
+
+                    System.out.print("Deseja inserir outra aresta? SIM (1) / NAO (0): ");
+                    SimOuNao = scanner.nextInt();
                 }
-            }
-            else if (opcao == 2) {
-                System.out.println("Quer verificar a existencia da aresta? ");
-                SimOuNao = scanner.nextInt();
-                if (SimOuNao == 0) {
-                    continue;
-                }else{
-                    while (SimOuNao == 1) {
-                        System.out.println("Forneça os vértices os quais você quer verificar se existe aresta: ");
-                        vert1 = scanner.nextInt();
-                        vert2 = scanner.nextInt();  
-                        grafo.ExisteAresta(vert1, vert2);
-                        System.out.println("Quer verificar a existencia da aresta? ");
-                        SimOuNao = scanner.nextInt();
-                    }
-                }
-            }
-            else if (opcao == 3) {
-                System.out.println("deseja remover aresta? ");
-                SimOuNao = scanner.nextInt();
-                if (SimOuNao == 0) {
-                    continue;
-                }else{
-                    for (int i = 0; i <= 2; i++) {
-                        System.out.println("Forneça os vértices os quais você quer verificar se existe aresta: ");
-                        vert1 = scanner.nextInt();
-                        vert2 = scanner.nextInt();  
-                        grafo.RemoveAresta(vert1, vert2);
-                    }
-                }
-            }
-            else if (opcao == 4) {
-                System.out.println("Deseja listar adjacentes? ");
-                SimOuNao = scanner.nextInt();
-                if (SimOuNao == 0) {
-                    continue;
-                }else{
-                    while (SimOuNao == 1) {
-                        System.out.println("Qual vertice voce deseja verificar os adjacentes? ");
-                        vert1 = scanner.nextInt();
-                        grafo.ListarAdjacentes(vert1);
-                        System.out.println("Deseja listar adjacentes? ");
-                        SimOuNao = scanner.nextInt();
-                    }
-                }
-            }
-            else if (opcao == 5) {
-                grafo.ImprimeGrafoPorAresta();
-                continue;
-            }
-            else if (opcao == 6) {
-                grafo.ImprimeGrafoMatriz();
-                continue;
-            }
-            else if (opcao == 0) {
-                System.out.println("Não vai usar nada, então? Portanto, tenha uma ótima noite");
-                break;
-            }
-            else{
-                System.out.println("Insira uma opcao valida!");
-                continue;
             }
 
+            else if (opcao == 2) {
+                SimOuNao = 1;
+                while (SimOuNao == 1) {
+
+                    System.out.print("Informe v1 e v2 para verificação: \n");
+                    vert1 = scanner.nextInt();
+                    vert2 = scanner.nextInt();
+
+                    if (!validaVertices(vert1, vert2, inputVertices)) {
+                        System.out.println("Vértices inválidos!");
+                        continue;
+                    }
+
+                    grafo.ExisteAresta(vert1, vert2);
+
+                    System.out.print("Deseja verificar outra aresta? SIM (1) / NAO (0): ");
+                    SimOuNao = scanner.nextInt();
+                }
+            }
+
+            else if (opcao == 3) {
+                SimOuNao = 1;
+                while (SimOuNao == 1) {
+
+                    System.out.print("Informe v1 e v2 da aresta a remover: \n");
+                    vert1 = scanner.nextInt();
+                    vert2 = scanner.nextInt();
+
+                    if (!validaVertices(vert1, vert2, inputVertices)) {
+                        System.out.println("Vértices inválidos!");
+                        continue;
+                    }
+
+                    grafo.RemoveAresta(vert1, vert2);
+                    System.out.println("Aresta removida!");
+
+                    System.out.print("Deseja remover outra aresta? SIM (1) / NAO (0): ");
+                    SimOuNao = scanner.nextInt();
+                }
+            }
+
+            else if (opcao == 4) {
+                SimOuNao = 1;
+                while (SimOuNao == 1) {
+
+                    System.out.print("Informe o vértice para listar adjacentes: ");
+                    vert1 = scanner.nextInt();
+
+                    if (vert1 < 0 || vert1 >= inputVertices) {
+                        System.out.println("Vértice inválido!");
+                        continue;
+                    }
+
+                    ArrayList<Integer> adjacentes = grafo.ListarAdjacentes(vert1);
+
+                    if (adjacentes.isEmpty()) {
+                        System.out.println("O vértice " + vert1 + " não possui adjacentes.");
+                    } else {
+                        System.out.print("Adjacentes de " + vert1 + ": ");
+                        for (int adj : adjacentes) {
+                            System.out.print(adj + ", ");
+                        }
+                        System.out.println();
+                    }
+
+                    System.out.print("Deseja listar outro vértice? SIM (1) / NAO (0): ");
+                    SimOuNao = scanner.nextInt();
+                }
+            }
+
+            else if (opcao == 5) {
+                grafo.ImprimeGrafoPorAresta();
+            }
+
+            else if (opcao == 6) {
+                grafo.ImprimeGrafoMatriz();
+            }
+
+            else if (opcao == 0) {
+                System.out.println("Sistema finalizado!");
+                break;
+            }
+
+            else {
+                System.out.println("Opção inválida!");
+            }
         }
+
         scanner.close();
-        
+    }
+
+    private static boolean validaVertices(int v1, int v2, int limite) {
+        return v1 >= 0 && v1 < limite && v2 >= 0 && v2 < limite;
     }
 }
