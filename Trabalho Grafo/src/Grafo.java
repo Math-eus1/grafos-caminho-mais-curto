@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Grafo {
 
-    private final int INACESSIVEL = Integer.MAX_VALUE; // Valor usado quando não se sabe a distância real
+    private final int INACESSIVEL = -1; // Valor usado quando não se sabe a distância real
     private int [][] matriz;                           // entre o vértice inicial e os outros vértices, ai
     private int numVertices;                           // diz que é muito grande, muito longe, inacessível
     public int peso;
@@ -13,13 +13,8 @@ public class Grafo {
         matriz = new int [numVertices][numVertices];
 
         for (int i = 0; i < numVertices;i++){
-            for (int j = 0; j < numVertices;j++){
-                if (i == j){
-                    matriz[i][j] = 0;
-
-                }else {
+            for (int j = 0; j < numVertices;j++){  
                     matriz[i][j] = INACESSIVEL;
-                }
             }
         }
 
@@ -36,12 +31,6 @@ public class Grafo {
     }
 
     public void ExisteAresta(int v1, int v2){
-
-        if (v1 == v2) {
-            System.out.println("Não há verificação de arestas de um vértice para ele mesmo.");
-            return;
-        }
-
         if (matriz[v1][v2] == INACESSIVEL){
             System.out.println("Essa Aresta não existe!");
         } else{
