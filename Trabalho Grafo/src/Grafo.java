@@ -84,4 +84,12 @@ public class Grafo {
             System.out.println(); 
         }
     }
+    public int getNumVertices() {
+        return numVertices;
+    }
+
+    public int[][] getMatriz() {
+        return matriz;
+    }
+    
 }
