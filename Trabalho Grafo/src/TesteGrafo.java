@@ -24,6 +24,7 @@ public class TesteGrafo {
             System.out.println("4) Listar Adjacentes");
             System.out.println("5) Imprimir Grafo por Aresta");
             System.out.println("6) Imprimir Grafo por Matriz");
+            System.out.println("7) Calcular o menor caminho(Diskstra)");
             System.out.println("0) Sair do Sistema");
             System.out.print("Escolha uma opção: ");
 
@@ -129,6 +130,20 @@ public class TesteGrafo {
 
             else if (opcao == 6) {
                 grafo.ImprimeGrafoMatriz();
+            }
+
+            else if (opcao == 7) {
+
+                System.out.print("Informe o vértice inicial para o Dijkstra: ");
+                int vertInicial = scanner.nextInt();
+
+                if (vertInicial < 0 || vertInicial >= inputVertices) {
+                    System.out.println("Vértice inválido!");
+                    continue;
+                }
+
+                Dijkstra dijkstra = new Dijkstra();
+                dijkstra.Executar(grafo, vertInicial);
             }
 
             else if (opcao == 0) {
