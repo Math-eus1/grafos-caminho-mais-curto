@@ -1,59 +1,93 @@
+import java.util.Arrays;
+
 public class Dijkstra {
 
-    private final int INACESSIVEL = -1;
+    private static final int INACESSIVEL = -1;
 
-    public void Executar(Grafo g, int verticeInicial) {
+    public int[] executar(Grafo g, int verticeInicial) {
 
-        int numVertices = g.getNumVertices();
+        int n = g.getNumVertices();
         int[][] matriz = g.getMatriz();
 
-        int[] distancia = new int[numVertices];
-        boolean[] visitado = new boolean[numVertices];
+        int[] dist = new int[n];
+        boolean[] visitado = new boolean[n];
+        int[] predecessor = new int[n];
 
         // Inicialização
-        for (int i = 0; i < numVertices; i++) {
-            distancia[i] = INACESSIVEL;
-            visitado[i] = false;
-        }
+        Arrays.fill(dist, INACESSIVEL);
+        Arrays.fill(predecessor, INACESSIVEL);
 
-        distancia[verticeInicial] = 0;
+        dist[verticeInicial] = 0;
 
-        // Algoritmo de Dijkstra
-        for (int i = 0; i < numVertices - 1; i++) {
+        System.out.println("\nIteração | S | d[]");
 
-            int verticeAtual = -1;
-            int menorDistancia = Integer.MAX_VALUE;
+        for (int iter = 0; iter < n; iter++) {
 
-            // Escolhe o vértice não visitado com menor distância
-            for (int v = 0; v < numVertices; v++) {
-                if (!visitado[v] && distancia[v] != INACESSIVEL) {
-                    if (distancia[v] < menorDistancia) {
-                        menorDistancia = distancia[v];
-                        verticeAtual = v;
+            int u = -1;
+            int menor = Integer.MAX_VALUE;
+
+            // Escolhe vértice não visitado com menor distância
+            for (int i = 0; i < n; i++) {
+                if (!visitado[i] && dist[i] != INACESSIVEL) {
+                    if (dist[i] < menor) {
+                        menor = dist[i];
+                        u = i;
                     }
                 }
             }
 
-            if (verticeAtual == -1) break;
+            if (u == -1) break;
 
-            visitado[verticeAtual] = true;
+            visitado[u] = true;
 
-            // Atualiza as distâncias dos vizinhos
-            for (int v = 0; v < numVertices; v++) {
-                if (matriz[verticeAtual][v] != INACESSIVEL && !visitado[v]) {
-                    if (distancia[v] == INACESSIVEL ||
-                        distancia[verticeAtual] + matriz[verticeAtual][v] < distancia[v]) {
+            // Relaxamento
+            for (int v = 0; v < n; v++) {
+                if (!visitado[v] && matriz[u][v] != INACESSIVEL) {
 
-                        distancia[v] = distancia[verticeAtual] + matriz[verticeAtual][v];
+                    int novaDist = dist[u] + matriz[u][v];
+
+                    if (dist[v] == INACESSIVEL || novaDist < dist[v]) {
+                        dist[v] = novaDist;
+                        predecessor[v] = u;
                     }
                 }
             }
+
+            // Impressão estilo slide
+            System.out.print("(" + iter + ") | { ");
+            for (int i = 0; i < n; i++) {
+                if (visitado[i]) {
+                    System.out.print(i + " ");
+                }
+            }
+            System.out.print("} | ");
+
+            for (int i = 0; i < n; i++) {
+                if (dist[i] == INACESSIVEL) {
+                    System.out.print("∞ ");
+                } else {
+                    System.out.print(dist[i] + " ");
+                }
+            }
+            System.out.println();
         }
 
-        // Resultado
-        System.out.println("Menor distância a partir do vértice " + verticeInicial);
-        for (int i = 0; i < numVertices; i++) {
-            System.out.println("Vértice " + i + " -> " + distancia[i]);
+        // Caminhos mínimos
+        System.out.println("\nCaminhos mínimos:");
+        for (int i = 0; i < n; i++) {
+            System.out.print(verticeInicial + " -> " + i + ": ");
+            imprimirCaminho(predecessor, i);
+            System.out.println();
         }
+
+        return dist;
+    }
+
+    private void imprimirCaminho(int[] pred, int v) {
+        if (v == INACESSIVEL) {
+            return;
+        }
+        imprimirCaminho(pred, pred[v]);
+        System.out.print(v + " ");
     }
 }

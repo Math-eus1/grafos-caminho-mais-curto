@@ -142,7 +142,16 @@ public class TesteGrafo {
                 }
 
                 Dijkstra dijkstra = new Dijkstra();
-                dijkstra.Executar(grafo, vertInicial);
+                int[] distancias = dijkstra.executar(grafo, vertInicial);
+
+                System.out.println("\nResultado final (menores distâncias):");
+                for (int i = 0; i < distancias.length; i++) {
+                    if (distancias[i] == -1) {
+                        System.out.println("Vértice " + i + ": inacessível");
+                    } else {
+                        System.out.println("Vértice " + i + ": " + distancias[i]);
+                    }
+                }
             }
 
             else if (opcao == 0) {
