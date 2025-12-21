@@ -47,7 +47,6 @@ public class TesteGrafo {
                     }
 
                     grafo.InserirAresta(vert1, vert2, pesoAresta);
-                    System.out.println("Aresta inserida com sucesso!");
 
                     System.out.print("Deseja inserir outra aresta? SIM (1) / NAO (0): ");
                     SimOuNao = scanner.nextInt();

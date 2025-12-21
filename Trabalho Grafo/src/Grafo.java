@@ -21,7 +21,23 @@ public class Grafo {
     }
 
     public void InserirAresta(int v1, int v2, int peso){
-        matriz[v1][v2] = peso; // Atribui o valor da Aresta ao peso e é direcionado, pois só tem um sentido
+
+        // Verificação de vértices válidos
+        if (v1 < 0 || v1 >= numVertices || v2 < 0 || v2 >= numVertices) {
+            System.out.println("Vértice inválido!");
+            return;
+        }
+
+        if (matriz[v1][v2] != INACESSIVEL) {
+            System.out.println("Aresta já existente entre " + v1 + " -> " + v2 +
+                    " com peso " + matriz[v1][v2] +
+                    ". Remova a aresta antes de inserir outra.");
+            return;
+        }
+
+        matriz[v1][v2] = peso;
+        System.out.println("Aresta inserida: " + v1 + " -> " + v2 + " (peso " + peso + ")");
+        System.out.println("Aresta inserida com sucesso!");
     }
 
     public void Insercao(){
