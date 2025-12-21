@@ -53,7 +53,7 @@ public class Dijkstra {
                 }
             }
 
-            // Impressão estilo slide
+            // Isso aqui é seguindo a forma como o slide mostra
             System.out.print("(" + iter + ") | { ");
             for (int i = 0; i < n; i++) {
                 if (visitado[i]) {
