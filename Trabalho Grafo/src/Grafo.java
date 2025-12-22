@@ -57,7 +57,7 @@ public class Grafo {
     public void RemoveAresta(int v1, int v2){
         if (matriz[v1][v2] == INACESSIVEL){
             System.out.println("Essa Aresta não existe!");
-        }  else {
+        } else {
            peso = matriz[v1][v2];
            matriz[v1][v2] = INACESSIVEL;
         }
@@ -67,9 +67,6 @@ public class Grafo {
         ArrayList<Integer> adjacentes = new ArrayList<>();
 
         for (int i = 0; i < numVertices; i++){
-            if (v == i){
-                continue;
-            }
 
             if (matriz[v][i] != INACESSIVEL){
                 adjacentes.add(i);
