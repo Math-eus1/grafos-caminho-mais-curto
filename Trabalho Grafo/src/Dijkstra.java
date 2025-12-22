@@ -11,7 +11,7 @@ public class Dijkstra {
 
         int[] dist = new int[n];
         boolean[] visitado = new boolean[n];
-        int[] predecessor = new int[n];
+        int[] predecessor = new int[n]; // π
 
         // Inicialização
         Arrays.fill(dist, INACESSIVEL);
@@ -48,7 +48,7 @@ public class Dijkstra {
 
                     if (dist[v] == INACESSIVEL || novaDist < dist[v]) {
                         dist[v] = novaDist;
-                        predecessor[v] = u;
+                        predecessor[v] = u; // π[v] = u
                     }
                 }
             }
@@ -77,7 +77,34 @@ public class Dijkstra {
         for (int i = 0; i < n; i++) {
             System.out.print(verticeInicial + " -> " + i + ": ");
             imprimirCaminho(predecessor, i);
+
+            if (predecessor[i] != INACESSIVEL) {
+                System.out.print(" | π[" + i + "] = " + predecessor[i]);
+            } else {
+                System.out.print(" | π[" + i + "] = ∅");
+            }
+
             System.out.println();
+        }
+
+        // Impressão dos predecessores para cada vértice
+        System.out.println("\nVetor de predecessores (π):");
+        for (int i = 0; i < n; i++) {
+            if (predecessor[i] == INACESSIVEL) {
+                System.out.println("π[" + i + "] = ∅");
+            } else {
+                System.out.println("π[" + i + "] = " + predecessor[i]);
+            }
+        }
+
+        // Resultado final
+        System.out.println("\nResultado final (menores distâncias):");
+        for (int i = 0; i < n; i++) {
+            if (dist[i] == INACESSIVEL) {
+                System.out.println("Vértice " + i + ": inacessível");
+            } else {
+                System.out.println("Vértice " + i + ": " + dist[i]);
+            }
         }
 
         return dist;
